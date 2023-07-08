@@ -48,6 +48,10 @@ main .book {
     width: 280px;
 }
 
+.book h3, p {
+    text-align: center;
+}
+
 .controls {
     grid-area: controls;
 }
