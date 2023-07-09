@@ -102,7 +102,7 @@ main .book {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-.book .book-controls {
+.book .bookControls {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
