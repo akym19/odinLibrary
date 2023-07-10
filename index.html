@@ -65,8 +65,35 @@
         </main>
     </div>
     <div class="modal" id="modal">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium laborum consequuntur asperiores est repudiandae, commodi facere molestiae rerum dolores doloremque, delectus, dolore ad nesciunt veniam unde magnam culpa possimus id.
-        <button id="modalBtn">Close</button>
+        <img id="modalBtn" src="/resources/delete.png" alt="close">
+
+        <form action="#" id="addBookForm" class="addBookForm" method="post">
+            <h2>Add New Book</h2>
+            <p id="instructions">Please provide book details below.</p>
+
+            <div class="inputContainer">
+                <label for="newBookTitle">Title</label>
+                <input autocomplete="off" type="text" name="newBookTitle" id="newBookTitle" placeholder="e.g Harry Potter" required>
+            </div>
+
+            <div class="inputContainer">
+                <label for="newBookAuthor">Author</label>
+                <input autocomplete="off" type="text" name="newBookAuthor" id="newBookAuthor" placeholder="e.g J.K Rowling" required>
+            </div>
+
+            <div class="inputContainer">
+                <label for="newBookDate">Date Released</label>
+                <input autocomplete="off" type="tel" name="newBookDate" id="newBookDate" placeholder="e.g 1997" pattern="[0-9]{4}" required>
+            </div>
+
+            <div class="readStatusMarker">
+                <input type="checkbox" name="readStatus" id="readStatus">
+                <p>Done reading?</p>
+            </div>
+
+            <button type="submit" class="submitBtn">Add Book</button>
+        </form>
+        <!-- <button id="modalBtn">Close</button> -->
     </div>
 </body>
 </html>
