@@ -31,7 +31,37 @@ addToLibrary(ballad)
 
 console.log(myLibrary)
 
-// let mainContent = document.querySelector('main')
+let bookForm = document.getElementById('addBookForm')
+
+bookForm.addEventListener('submit',function(e){
+    e.preventDefault()
+
+    let title = newBookTitle.value
+    let author = newBookAuthor.value
+    let date = newBookDate.value
+    let read = readStatus
+
+    let readStatusSubmitted;
+
+    if (read.checked == true){
+        readStatusSubmitted = 'read'
+    } else {
+        readStatusSubmitted = 'not read yet'
+    }
+
+    let submittedBook = new Book(title, author, date, readStatusSubmitted)
+    addToLibrary(submittedBook)
+    createBook(submittedBook)
+    bookForm.reset()
+})
+
+function createLibrary() {
+    for (let i = 0; i < myLibrary.length; i++){
+        createBook(myLibrary[i])
+    }
+}
+
+window.addEventListener('load', createLibrary())
 
 function createBook(newBook){
     let mainContent = document.querySelector('main')
@@ -87,8 +117,6 @@ function createBook(newBook){
 
     book.appendChild(bookDetails)
     book.appendChild(bookControls)
-
-    console.log(book)
 
     mainContent.appendChild(book)
 }
