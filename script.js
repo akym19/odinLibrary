@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         elem.addEventListener("click", function(e) {
             let parentBook = e.target.parentNode.parentNode
             parentBook.parentNode.removeChild(parentBook)
+            
         })
     })
 })
