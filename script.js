@@ -21,15 +21,13 @@ const addToLibrary = function (book) {
     myLibrary.push(book)
 }
 
-
 addToLibrary(theHobbit)
-
 addToLibrary(theHungerGames)
 addToLibrary(catchingFire)
 addToLibrary(mockingJay)
 addToLibrary(ballad)
 
-console.log(myLibrary)
+// console.log(myLibrary)
 
 let bookForm = document.getElementById('addBookForm')
 
@@ -57,18 +55,29 @@ bookForm.addEventListener('submit',function(e){
 
 function createLibrary() {
     for (let i = 0; i < myLibrary.length; i++){
-        createBook(myLibrary[i])
+        createBook(myLibrary[i], i)
     }
 }
 
-window.addEventListener('load', createLibrary())
+document.addEventListener('DOMContentLoaded', function() {
+    let remButtons = document.querySelectorAll('.removeBook')
+    console.log(remButtons)
 
-function createBook(newBook){
+    remButtons.forEach(function(elem) {
+        elem.addEventListener("click", function(e) {
+            let parentBook = e.target.parentNode.parentNode
+            parentBook.parentNode.removeChild(parentBook)
+        })
+    })
+})
+
+function createBook(newBook, index){
     let mainContent = document.querySelector('main')
     
     // create book card
     let book = document.createElement('div')
     book.classList.add('book')
+    book.setAttribute("id", newBook.title)
 
     // create bookDetails div
     let bookDetails = document.createElement('div')
@@ -107,6 +116,7 @@ function createBook(newBook){
     let removeBookBtn = document.createElement('button')
     removeBookBtn.classList.add('removeBook')
     removeBookBtn.textContent = "Remove"
+    removeBookBtn.setAttribute("data-index", index)
 
     bookDetails.appendChild(bookTitle)
     bookDetails.appendChild(bookAuthor)
@@ -136,3 +146,5 @@ function toggle(){
 
 addBookBtn.addEventListener('click', toggle)
 closeModalBtn.addEventListener('click', toggle)
+
+window.addEventListener('load', createLibrary())
