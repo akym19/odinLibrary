@@ -170,7 +170,7 @@ main {
 main .book {
     height: 250px;
     width: 280px;
-    padding: 3%;
+    padding: 20px;
     /* display: flex;
     flex-direction: column;
     justify-content: center; */
