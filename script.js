@@ -21,11 +21,11 @@ const addToLibrary = function (book) {
     myLibrary.push(book)
 }
 
-addToLibrary(theHobbit)
-addToLibrary(theHungerGames)
-addToLibrary(catchingFire)
-addToLibrary(mockingJay)
-addToLibrary(ballad)
+// addToLibrary(theHobbit)
+// addToLibrary(theHungerGames)
+// addToLibrary(catchingFire)
+// addToLibrary(mockingJay)
+// addToLibrary(ballad)
 
 // console.log(myLibrary)
 
@@ -39,15 +39,13 @@ bookForm.addEventListener('submit',function(e){
     let date = newBookDate.value
     let read = readStatus
 
-    let readStatusSubmitted;
-
     if (read.checked == true){
-        readStatusSubmitted = 'read'
+        readStatus = 'read'
     } else {
-        readStatusSubmitted = 'not read yet'
+        readStatus = 'not read yet'
     }
 
-    let submittedBook = new Book(title, author, date, readStatusSubmitted)
+    let submittedBook = new Book(title, author, date, readStatus)
     addToLibrary(submittedBook)
     createBook(submittedBook)
     bookForm.reset()
@@ -59,20 +57,22 @@ function createLibrary() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    let remButtons = document.querySelectorAll('.removeBook')
-    console.log(remButtons)
+function removeBook(e) {
+    let parentBook = e.target.parentNode.parentNode;
+    let bookIndex = parseInt(e.target.getAttribute("data-index"))
+    parentBook.parentNode.removeChild(parentBook)
+    myLibrary.splice(bookIndex, 1)
 
-    remButtons.forEach(function(elem) {
-        elem.addEventListener("click", function(e) {
-            let parentBook = e.target.parentNode.parentNode
-            parentBook.parentNode.removeChild(parentBook)
-            
-        })
+    // Update indices of remaining elements
+    let remBtns = document.querySelectorAll('.removeBook')
+    remBtns.forEach(function (elem, newIndex) {
+        elem.setAttribute("data-index", newIndex)
     })
-})
+}
 
 function createBook(newBook, index){
+    index = myLibrary.length-1
+
     let mainContent = document.querySelector('main')
     
     // create book card
@@ -118,6 +118,7 @@ function createBook(newBook, index){
     removeBookBtn.classList.add('removeBook')
     removeBookBtn.textContent = "Remove"
     removeBookBtn.setAttribute("data-index", index)
+    removeBookBtn.addEventListener("click", removeBook)
 
     bookDetails.appendChild(bookTitle)
     bookDetails.appendChild(bookAuthor)
