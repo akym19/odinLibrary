@@ -21,11 +21,11 @@ const addToLibrary = function (book) {
     myLibrary.push(book)
 }
 
-// addToLibrary(theHobbit)
-// addToLibrary(theHungerGames)
-// addToLibrary(catchingFire)
-// addToLibrary(mockingJay)
-// addToLibrary(ballad)
+addToLibrary(theHobbit)
+addToLibrary(theHungerGames)
+addToLibrary(catchingFire)
+addToLibrary(mockingJay)
+addToLibrary(ballad)
 
 // console.log(myLibrary)
 
@@ -70,6 +70,20 @@ function removeBook(e) {
     })
 }
 
+function readToggle(e) {
+    const readStatus = e.target;
+  
+  if (readStatus.classList.contains('readBook')) {
+    readStatus.classList.remove('readBook');
+    readStatus.classList.add('notReadBook');
+    readStatus.textContent = "Not Read"
+  } else if (readStatus.classList.contains('notReadBook')) {
+    readStatus.classList.remove('notReadBook');
+    readStatus.classList.add('readBook');
+    readStatus.textContent = "Read"
+  }
+}
+
 function createBook(newBook, index){
     index = myLibrary.length-1
 
@@ -105,6 +119,7 @@ function createBook(newBook, index){
 
     // create read unread button
     let readBook = document.createElement('button')
+    readBook.classList.add('readStatus')
     if (newBook.read == 'read') {
         readBook.classList.add('readBook')
         readBook.textContent = "Read"
@@ -112,6 +127,7 @@ function createBook(newBook, index){
         readBook.classList.add('notReadBook')
         readBook.textContent = "Not Read"
     }
+    readBook.addEventListener("click", readToggle)
 
     // create remove book button
     let removeBookBtn = document.createElement('button')
