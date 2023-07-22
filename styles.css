@@ -126,10 +126,6 @@ form input[type="checkbox"] {
     translate: 0 -5px;
 }
 
-* {
-    /* outline: solid 1px black; */
-}
-
 header {
     grid-area: header;
     width: 100%;

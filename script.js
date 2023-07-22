@@ -11,23 +11,23 @@ Book.prototype.info = function() {
     return `${this.title} by ${this.author}, ${this.date}, ${this.read}`
 }
 
-const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, 'not read yet')
-const theHungerGames = new Book('The Hunger Games', 'Suzanne Collins', 1, 'read')
-const catchingFire = new Book('Catching Fire', 'Suzanne Collins', 1, 'not read yet')
-const mockingJay = new Book('Mockingjay', 'Suzanne Collins', 1, 'read')
-const ballad = new Book('The Ballad of Songbirds and Snakes', 'Suzanne Collins', 1, 'read')
+const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 2012, 'not read yet')
+const theHungerGames = new Book('The Hunger Games', 'Suzanne Collins', 2008, 'read')
+const catchingFire = new Book('Catching Fire', 'Suzanne Collins', 2009, 'not read yet')
+const mockingJay = new Book('Mockingjay', 'Suzanne Collins', 2010, 'read')
+const ballad = new Book('The Ballad of Songbirds and Snakes', 'Suzanne Collins', 2020, 'read')
 
 const addToLibrary = function (book) {
     myLibrary.push(book)
 }
 
+// shows initial book. change the set Attribute when removing this
 addToLibrary(theHobbit)
-addToLibrary(theHungerGames)
-addToLibrary(catchingFire)
-addToLibrary(mockingJay)
-addToLibrary(ballad)
+// addToLibrary(theHungerGames)
+// addToLibrary(catchingFire)
+// addToLibrary(mockingJay)
+// addToLibrary(ballad)
 
-// console.log(myLibrary)
 
 let bookForm = document.getElementById('addBookForm')
 
@@ -39,13 +39,15 @@ bookForm.addEventListener('submit',function(e){
     let date = newBookDate.value
     let read = readStatus
 
+    let readStatusSubmitted
+
     if (read.checked == true){
-        readStatus = 'read'
+        readStatusSubmitted = 'read'
     } else {
-        readStatus = 'not read yet'
+        readStatusSubmitted = 'not read yet'
     }
 
-    let submittedBook = new Book(title, author, date, readStatus)
+    let submittedBook = new Book(title, author, date, readStatusSubmitted)
     addToLibrary(submittedBook)
     createBook(submittedBook)
     bookForm.reset()
@@ -59,28 +61,31 @@ function createLibrary() {
 
 function removeBook(e) {
     let parentBook = e.target.parentNode.parentNode;
-    let bookIndex = parseInt(e.target.getAttribute("data-index"))
+    let bookIndex = parseInt(parentBook.getAttribute("data-index"))
     parentBook.parentNode.removeChild(parentBook)
     myLibrary.splice(bookIndex, 1)
 
     // Update indices of remaining elements
     let remBtns = document.querySelectorAll('.removeBook')
     remBtns.forEach(function (elem, newIndex) {
-        elem.setAttribute("data-index", newIndex)
+        elem.parentNode.parentNode.setAttribute("data-index", newIndex)
     })
 }
 
 function readToggle(e) {
     const readStatus = e.target;
+    const bookIndex =  parseInt(readStatus.parentNode.parentNode.getAttribute("data-index"))
   
   if (readStatus.classList.contains('readBook')) {
     readStatus.classList.remove('readBook');
     readStatus.classList.add('notReadBook');
     readStatus.textContent = "Not Read"
+    myLibrary[bookIndex].read = "not read yet"
   } else if (readStatus.classList.contains('notReadBook')) {
     readStatus.classList.remove('notReadBook');
     readStatus.classList.add('readBook');
     readStatus.textContent = "Read"
+    myLibrary[bookIndex].read = "read"
   }
 }
 
@@ -93,6 +98,7 @@ function createBook(newBook, index){
     let book = document.createElement('div')
     book.classList.add('book')
     book.setAttribute("id", newBook.title)
+    book.setAttribute("data-index", index)
 
     // create bookDetails div
     let bookDetails = document.createElement('div')
@@ -111,7 +117,7 @@ function createBook(newBook, index){
     // create date element
     let bookDate = document.createElement('p')
     bookDate.classList.add('date')
-    bookDate.textContent = newBook.date
+    bookDate.textContent = `Date Published: ${newBook.date}`
 
     // create bookControls div
     let bookControls = document.createElement('div')
@@ -133,7 +139,6 @@ function createBook(newBook, index){
     let removeBookBtn = document.createElement('button')
     removeBookBtn.classList.add('removeBook')
     removeBookBtn.textContent = "Remove"
-    removeBookBtn.setAttribute("data-index", index)
     removeBookBtn.addEventListener("click", removeBook)
 
     bookDetails.appendChild(bookTitle)
