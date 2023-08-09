@@ -70,6 +70,12 @@ function removeBook(e) {
     remBtns.forEach(function (elem, newIndex) {
         elem.parentNode.parentNode.setAttribute("data-index", newIndex)
     })
+
+    if (myLibrary.length == 0) {
+        blank = document.createElement("img")
+        blank.src = "resources/empty.jpg"
+        mainContent.appendChild(blank)
+    }
 }
 
 function readToggle(e) {
