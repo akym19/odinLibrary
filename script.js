@@ -11,18 +11,6 @@ Book.prototype.info = function() {
     return `${this.title} by ${this.author}, ${this.date}, ${this.read}`
 }
 
-// class Book {
-//     constructor(title, author, date, read) {
-//         this.title = title;
-//         this.author = author;
-//         this.date = date;
-//         this.read = read;
-//     }
-//     info() {
-//         return `${this.title} by ${this.author}, ${this.date}, ${this.read}`;
-//     }
-// }
-
 const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 2012, 'not read yet')
 const theHungerGames = new Book('The Hunger Games', 'Suzanne Collins', 2008, 'read')
 const catchingFire = new Book('Catching Fire', 'Suzanne Collins', 2009, 'not read yet')
